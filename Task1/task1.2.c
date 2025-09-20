@@ -2,12 +2,22 @@
 
 int main()
 {
-	char a = 127;
-	++ a;
-	if(a == -128)
+	char a;
+	scanf("%c", &a);
+	char flag = 0;
+	while(a <= 255)
 	{
-		printf("signed char\n");
-	} else if(a == 128)
+		++ a;
+		if(a < 0)
+		{
+			flag = 1;
+			break;
+		}
+	}
+	if(flag)
+	{
+		printf("singned char\n");
+	} else
 	{
 		printf("unsigned char\n");
 	}

@@ -61,6 +61,14 @@ char longdoubleBYTES()
         return (ptr_a > ptr_b) ? (ptr_a - ptr_b) : (ptr_b - ptr_a);
 }
 
+char longdoubleBYTESRAW()
+{
+        long double a, b;
+        char *ptr_a =(char *)&a;
+        char *ptr_b = (char *)&b;
+        return ptr_a - ptr_b;
+}
+
 int main()
 {
 	printf("short BYTES %d\n", shortBITS() / 8);
@@ -69,5 +77,6 @@ int main()
 	printf("float BYTES %d\n", floatBYTES());
 	printf("double BYTES %d\n", doubleBYTES());
 	printf("long double BYTES %d\n", longdoubleBYTES());
+	printf("long double BYTES RAW %d\n", longdoubleBYTESRAW());
 	return 0;
 }
