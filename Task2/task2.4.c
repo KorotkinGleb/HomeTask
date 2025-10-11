@@ -8,14 +8,14 @@ enum STATE {INTEGER, FRACTION, EXPONENT};
 double get_pow10(int pow, char sign)
 {
 	double value = 1.0;
-	if(sign == '+' || sign == ' ')
+	if(sign == '+' || sign == ' ' || sign == 'F' || sign == 'f' )
 	{
 		while(pow)
 		{
 			value *= 10;
 			-- pow;
 		}
-	} else
+	} else 
 	{
 		while(pow)
 		{
@@ -74,11 +74,17 @@ void update_value(char symbol, int *value)
 
 double str2double_opt(char string[])
 {
-	int size_string = strlen(string), integer = 0, fraction = 0, exponent = 0;
+	int size_string = strlen(string), integer = 0, fraction = 0, exponent = 0, i = 0;
 	char sign = ' ';
+	int sign_value = 1;
 	char prefix = ' ';
 	enum STATE state = INTEGER;
-	for(int i = 0; i < size_string; i ++)
+	if(string[0] == '-' || string[0] == '+')
+	{
+		i ++;
+		if(string[0] == '-') sign_value = -1;
+	}
+	for(; i < size_string; i ++)
 	{
 		switch(state)
 		{
@@ -102,7 +108,7 @@ double str2double_opt(char string[])
 				break;
 		}
 	}
-	return get_double(integer, fraction, exponent, sign);
+	return sign_value * get_double(integer, fraction, exponent, sign);
 }
 
 int main()
