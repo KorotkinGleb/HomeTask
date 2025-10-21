@@ -32,24 +32,6 @@ void UptateRoot(tree *Root, elemtype Element)
 	(*Root) = NewRoot;
 }
 
-void InsertNodeLeft(tree *Root, elemtype Element)
-{
-	tree LeftNode = malloc(sizeof(tnode));
-	LeftNode->elem = Element;
-	LeftNode->left = (*Root)->left;
-	LeftNode->right = NULL;
-	(*Root)->left = LeftNode;
-}
-
-void InsertNodeRight(tree *Root, elemtype Element)
-{
-	tree RightNode = malloc(sizeof(tnode));
-	RightNode->elem = Element;
-	RightNode->right = (*Root)->right;
-	RightNode->left = NULL;
-	(*Root)->right = RightNode;
-}
-
 void InsertNode(tree *Root, elemtype Element)
 {
 	if(*Root == NULL)
