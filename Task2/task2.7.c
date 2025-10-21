@@ -10,7 +10,6 @@ int mult(void);
 void error(void);
 int mypow(int x, int y);
 int mainexpr(void);
-int getbase(void);
 
 int main()
 {
@@ -18,7 +17,7 @@ int main()
 	setjmp(begin);
 	printf("==>");
 	getlex();
-	result = expr();
+	result = mainexpr();
 	if(curlex != '\n') error();
 	printf("\n%d\n", result);
 	return 0;
@@ -34,6 +33,19 @@ void error()
 	printf("\nОШИБКА!\n");
 	while((curlex = getchar()) != '\n');
 	longjmp(begin, 1);
+}
+
+int mainexpr()
+{
+	int e = expr();
+	while(curlex == '^')
+	{
+		getlex();
+		int k = expr();
+		if(k < 0) error();
+		e = mypow(e, k);
+	}
+	return e;
 }
 
 int expr()
@@ -73,18 +85,6 @@ int add()
 }
 
 int mult()
-{
-	int a = getbase(), k;
-	while(curlex == '^')
-	{
-		getlex();
-		k = getbase();
-		a = mypow(a, k);
-	}
-	return a;
-}
-
-int getbase()
 {
 	int m;
 	switch(curlex){
