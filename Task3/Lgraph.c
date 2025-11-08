@@ -16,8 +16,8 @@ int getsym()
 		cursym = 0;
 		for(int i = 0; i < N; i ++)
                         if(fscanf(stdin, "%lc", symbstr + i) == EOF) {
-				symbstr[i] = EOF;
-				break;
+				free(symbstr);
+				return EOF;
 			}
 	}
 	return symbstr[cursym ++];
@@ -31,6 +31,8 @@ void* start(wordlist *wordset, wordbuf *curword, int *c) {
 		wordsort(wordset);
 		printlist(wordset);
 		clearlist(wordset);
+		free(wordset);
+		free(curword);
 		return stop;
 	}
 	else if (*c=='\n') {
